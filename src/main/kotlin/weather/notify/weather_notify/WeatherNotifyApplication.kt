@@ -1,4 +1,4 @@
-package alone.project.weather_notify
+package weather.notify.weather_notify
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

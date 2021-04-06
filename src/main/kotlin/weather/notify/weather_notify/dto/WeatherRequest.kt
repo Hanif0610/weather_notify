@@ -1,4 +1,4 @@
-package alone.project.weather_notify.dto
+package weather.notify.weather_notify.dto
 
 class WeatherRequest(
     val nx: Int,
