@@ -3,7 +3,6 @@ package alone.project.weather_notify.service
 import alone.project.weather_notify.domain.entity.Location
 import alone.project.weather_notify.domain.repository.ExcelRepository
 import org.apache.commons.io.FilenameUtils
-import org.apache.poi.hssf.usermodel.HeaderFooter.file
 import org.apache.poi.openxml4j.opc.OPCPackage
 import org.apache.poi.xssf.usermodel.XSSFCell
 import org.apache.poi.xssf.usermodel.XSSFRow
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import java.io.IOException
-
 
 @Service
 class ExcelService(
@@ -37,8 +35,8 @@ class ExcelService(
                 val deep1: XSSFCell = row.getCell(2)
                 val deep2: XSSFCell? = row.getCell(3)
                 val deep3: XSSFCell? = row.getCell(4)
-                val nx: XSSFCell? = row.getCell(14)
-                val ny: XSSFCell = row.getCell(13)
+                val nx: XSSFCell? = row.getCell(5)
+                val ny: XSSFCell = row.getCell(6)
 
                 excelRepository.save(
                     Location(
@@ -54,9 +52,5 @@ class ExcelService(
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
-
-    fun getData(): MutableList<Location> {
-        return excelRepository.findAll()
     }
 }
