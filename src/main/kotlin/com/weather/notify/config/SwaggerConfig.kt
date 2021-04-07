@@ -1,4 +1,4 @@
-package weather.notify.config
+package com.weather.notify.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -9,8 +9,11 @@ import springfox.documentation.builders.RequestHandlerSelectors
 import springfox.documentation.service.ApiInfo
 import springfox.documentation.spi.DocumentationType
 import springfox.documentation.spring.web.plugins.Docket
+import springfox.documentation.swagger2.annotations.EnableSwagger2
+import java.lang.Exception
 
 @Configuration
+@EnableSwagger2
 class SwaggerConfig: WebMvcConfigurer {
 
     @Bean
@@ -18,8 +21,9 @@ class SwaggerConfig: WebMvcConfigurer {
         return Docket(DocumentationType.SWAGGER_2)
             .useDefaultResponseMessages(false)
             .apiInfo(this.metaInfo())
+            .host("localhost:8000")
             .select()
-            .apis(RequestHandlerSelectors.basePackage("com.weather.notify"))
+            .apis(RequestHandlerSelectors.basePackage("com.weather.notify.controller"))
             .paths(PathSelectors.any())
             .build()
     }
@@ -34,12 +38,5 @@ class SwaggerConfig: WebMvcConfigurer {
             "License",
             "License URL"
         )
-    }
-
-    override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
-        registry.addResourceHandler("swagger-ui.html*")
-            .addResourceLocations("classpath:/META-INF/resources/")
-        registry.addResourceHandler("/webjars/**")
-            .addResourceLocations("classpath:/META-INF/resources/webjars/")
     }
 }
