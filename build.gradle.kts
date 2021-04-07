@@ -30,10 +30,15 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
-    implementation("com.googlecode.json-simple:json-simple:1.1")
 
+    implementation("io.springfox:springfox-swagger2:2.9.2")
+    implementation("io.springfox:springfox-swagger-ui:2.9.2")
+
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+
+    implementation("com.googlecode.json-simple:json-simple:1.1")
     compile("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+")
+
     compile("org.apache.poi:poi:3.12")
     compile("org.apache.poi:poi-ooxml:3.12")
     compile("org.apache.poi:poi-scratchpad:3.12")
