@@ -1,4 +1,4 @@
-package weather.notify.config
+package com.weather.notify.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

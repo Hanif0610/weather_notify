@@ -1,6 +1,6 @@
-package weather.notify.domain.repository
+package com.weather.notify.domain.repository
 
-import weather.notify.domain.entity.Location
+import com.weather.notify.domain.entity.Location
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
 

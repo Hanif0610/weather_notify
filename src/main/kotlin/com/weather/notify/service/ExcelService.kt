@@ -1,7 +1,7 @@
-package weather.notify.service
+package com.weather.notify.service
 
-import weather.notify.domain.entity.Location
-import weather.notify.domain.repository.ExcelRepository
+import com.weather.notify.domain.entity.Location
+import com.weather.notify.domain.repository.ExcelRepository
 import org.apache.commons.io.FilenameUtils
 import org.apache.poi.openxml4j.opc.OPCPackage
 import org.apache.poi.xssf.usermodel.XSSFCell

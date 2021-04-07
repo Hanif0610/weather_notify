@@ -1,7 +1,7 @@
-package weather.notify.controller
+package com.weather.notify.controller
 
-import weather.notify.dto.WeatherRequest
-import weather.notify.service.WeatherService
+import com.weather.notify.dto.WeatherRequest
+import com.weather.notify.service.WeatherService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
