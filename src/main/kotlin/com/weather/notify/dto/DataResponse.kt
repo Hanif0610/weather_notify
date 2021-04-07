@@ -1,4 +1,4 @@
-package weather.notify.dto
+package com.weather.notify.dto
 
 class DataResponse(
 

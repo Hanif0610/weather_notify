@@ -1,7 +1,7 @@
-package weather.notify.service
+package com.weather.notify.service
 
-import weather.notify.dto.DataResponse
-import weather.notify.dto.WeatherRequest
+import com.weather.notify.dto.DataResponse
+import com.weather.notify.dto.WeatherRequest
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import okhttp3.OkHttpClient

@@ -1,4 +1,4 @@
-package weather.notify.domain.entity
+package com.weather.notify.domain.entity
 
 import org.springframework.data.mongodb.core.mapping.Document
 import javax.persistence.Id
