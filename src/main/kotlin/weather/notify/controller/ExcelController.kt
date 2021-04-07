@@ -1,7 +1,7 @@
-package weather.notify.weather_notify.controller
+package weather.notify.controller
 
-import weather.notify.weather_notify.domain.entity.Location
-import weather.notify.weather_notify.service.ExcelService
+import weather.notify.domain.entity.Location
+import weather.notify.service.ExcelService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
