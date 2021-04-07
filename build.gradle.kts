@@ -31,9 +31,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
 
-    implementation("io.springfox:springfox-swagger2:2.9.2")
-    implementation("io.springfox:springfox-swagger-ui:2.9.2")
-    implementation("com.google.guava:guava:23.0")
+    implementation("io.springfox:springfox-swagger2:LATEST")
+    implementation("io.springfox:springfox-swagger-ui:LATEST")
 
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
 
