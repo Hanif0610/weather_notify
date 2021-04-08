@@ -36,6 +36,7 @@ dependencies {
 
     implementation("io.springfox:springfox-swagger2:3.0.0")
     implementation("io.springfox:springfox-swagger-ui:2.8.0")
+    implementation("javax.servlet:javax.servlet-api:3.1.0")
 
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
 
