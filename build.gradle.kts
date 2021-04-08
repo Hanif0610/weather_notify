@@ -23,7 +23,6 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
@@ -53,6 +52,7 @@ dependencies {
     compile("org.apache.poi:poi-contrib:3.6")
     compile("org.apache.poi:ooxml-security:1.0")
     compile("commons-io:commons-io:2.4")
+    compile("org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
