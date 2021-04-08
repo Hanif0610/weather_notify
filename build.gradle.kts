@@ -36,6 +36,7 @@ dependencies {
 
     implementation("io.springfox:springfox-swagger2:2.9.2")
     implementation("io.springfox:springfox-swagger-ui:2.9.2")
+    implementation("com.google.guava:guava:20.0")
 
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
 
@@ -52,7 +53,6 @@ dependencies {
     compile("org.apache.poi:poi-contrib:3.6")
     compile("org.apache.poi:ooxml-security:1.0")
     compile("commons-io:commons-io:2.4")
-    compile("org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
