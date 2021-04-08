@@ -26,19 +26,22 @@ class WebSecurityConfig(
             .passwordEncoder(passwordEncoder)
     }
 
-    override fun configure(http: HttpSecurity?) {
+    override fun configure(http: HttpSecurity) {
         http
-            ?.csrf()?.disable()
-            ?.formLogin()?.disable()
-            ?.headers()?.frameOptions()?.disable()
-            ?.and()
-            ?.authorizeRequests()
-                ?.antMatchers("/user/**")?.permitAll()
-                ?.antMatchers("/excel/**")?.permitAll()
-                ?.antMatchers("/weather/**")?.permitAll()
-                ?.anyRequest()?.authenticated()
-            ?.and()
-            ?.apply(JwtConfigurer(jwtTokenProvider))
+            .csrf().disable()
+            .formLogin().disable()
+            .headers().frameOptions().disable()
+            .and()
+            .authorizeRequests()
+                .antMatchers("/swagger-ui.html/**","/swagger**", "/favicon**",
+                    "/webjars**", "/webjars/**","swagger-ui-**", "/v2/**",
+                    "/swagger-resources/**", "swagger-resources**").permitAll()
+                .antMatchers("/user/**").permitAll()
+                .antMatchers("/excel/**").permitAll()
+                .antMatchers("/weather/**").permitAll()
+                .anyRequest().authenticated()
+            .and()
+            .apply(JwtConfigurer(jwtTokenProvider))
     }
 
     @Bean
