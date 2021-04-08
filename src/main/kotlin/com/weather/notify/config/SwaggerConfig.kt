@@ -39,18 +39,6 @@ class SwaggerConfig {
         )
     }
 
-    private fun getConsumeContentTypes(): Set<String> {
-        val consumes: MutableSet<String> = HashSet()
-        consumes.apply {
-            add("application/json;charset=UTF-8")
-            add("application/x-www-form-urlencoded")
-        }
-        return consumes
-    }
-
-    private fun getProduceContentTypes(): Set<String> {
-        val produces: MutableSet<String> = HashSet()
-        produces.add("application/json;charset=UTF-8")
-        return produces
-    }
+    private fun getConsumeContentTypes() = setOf("application/json")
+    private fun getProduceContentTypes() = setOf("application/json")
 }
