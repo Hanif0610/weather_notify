@@ -33,8 +33,9 @@ class WebSecurityConfig(
             .headers().frameOptions().disable()
             .and()
             .authorizeRequests()
-                .antMatchers("/swagger-**", "/favicon**", "/webjars**",
-                    "/webjars/**","swagger-ui-**", "/v2/**", "/swagger-resources/**").permitAll()
+                .antMatchers("/swagger-ui.html/**","/swagger**", "/favicon**",
+                    "/webjars**", "/webjars/**","swagger-ui-**", "/v2/**",
+                    "/swagger-resources/**", "swagger-resources**").permitAll()
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/excel/**").permitAll()
                 .antMatchers("/weather/**").permitAll()

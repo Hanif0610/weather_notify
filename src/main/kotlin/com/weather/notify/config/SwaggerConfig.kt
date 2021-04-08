@@ -25,6 +25,7 @@ class SwaggerConfig {
             .apis(RequestHandlerSelectors.basePackage("com.weather.notify.controller"))
             .paths(PathSelectors.any())
             .build()
+            .pathMapping("/");
     }
 
     private fun metaInfo(): ApiInfo {
