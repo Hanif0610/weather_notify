@@ -1,8 +1,6 @@
 package com.weather.notify.security
 
 import io.jsonwebtoken.ExpiredJwtException
-import io.jsonwebtoken.MalformedJwtException
-import io.jsonwebtoken.SignatureException
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
@@ -28,11 +26,8 @@ class JwtTokenFilter(
             filterChain.doFilter(request, response)
         } catch (e: Exception) {
             when(e) {
-                is SignatureException, is MalformedJwtException -> {
-                    response.sendError(401, "SignatureException error")
-                }
                 is ExpiredJwtException -> {
-                    response.sendError(403, "ExpiredJwtException error")
+                    response.sendError(403, "The jwt token has expired.")
                 }
                 else -> {
                     SecurityContextHolder.clearContext()
