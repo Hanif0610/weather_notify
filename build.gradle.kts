@@ -54,7 +54,10 @@ dependencies {
     compile("org.apache.poi:ooxml-security:1.0")
     compile("commons-io:commons-io:2.4")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+    testImplementation("io.mockk:mockk:1.9.3")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testRuntimeOnly("com.h2database:h2")
 }
 
 tasks.withType<KotlinCompile> {
