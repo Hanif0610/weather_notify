@@ -1,6 +1,6 @@
 package com.weather.notify.exception
 
 class CommonExceptionResponse(
-    val code: String,
+    val code: Int,
     val message :String
 )
