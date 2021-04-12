@@ -1,5 +1,6 @@
 package com.weather.notify.config
 
+import com.weather.notify.exception.error.InvalidTokenEntryPoint
 import com.weather.notify.security.AuthDetailsService
 import com.weather.notify.security.JwtConfigurer
 import com.weather.notify.security.JwtTokenProvider
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @Configuration
@@ -18,7 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder
 class WebSecurityConfig(
     @Autowired private val passwordEncoder: PasswordEncoder,
     @Autowired private val jwtTokenProvider: JwtTokenProvider,
-    @Autowired private val authDetailsService: AuthDetailsService
+    @Autowired private val authDetailsService: AuthDetailsService,
+    @Autowired private val invalidTokenEntryPoint: InvalidTokenEntryPoint
 ): WebSecurityConfigurerAdapter() {
 
     override fun configure(auth: AuthenticationManagerBuilder) {
@@ -31,6 +34,12 @@ class WebSecurityConfig(
             .csrf().disable()
             .formLogin().disable()
             .headers().frameOptions().disable()
+            .and()
+            .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .exceptionHandling()
+                .authenticationEntryPoint(invalidTokenEntryPoint)
             .and()
             .authorizeRequests()
                 .antMatchers("/swagger-ui.html/**","/swagger**", "/favicon**",
