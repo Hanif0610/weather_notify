@@ -3,7 +3,7 @@ package com.weather.notify.exception
 import org.springframework.http.HttpStatus
 
 class CommonException(
-    val code: String,
+    val code: Int,
     message: String,
     val status: HttpStatus
 ): RuntimeException(message)

@@ -20,7 +20,7 @@ class InvalidTokenEntryPoint: AuthenticationEntryPoint {
         val objectMapper = jacksonObjectMapper().findAndRegisterModules()
         val exceptionResponse = objectMapper.writeValueAsString(
             CommonExceptionResponse(
-                code = "INVALID_TOKEN",
+                code = 401,
                 message = "Invalid Token",
             )
         )
