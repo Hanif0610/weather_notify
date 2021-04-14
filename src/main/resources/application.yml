@@ -15,11 +15,11 @@ spring:
 
   jpa:
     properties:
-        hibernate:
-          dialect: org.hibernate.dialect.MySQLDialect
-          ddl-auto: update
-        show-sql: true
-        generate-ddl: true
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        ddl-auto: update
+      show-sql: true
+      generate-ddl: true
 
 #  data:
 #    mongodb:
