@@ -14,11 +14,12 @@ spring:
     password: hanif1293@
 
   jpa:
-    hibernate:
-      dialect: org.hibernate.dialect.MySQLDialect
-      ddl-auto: update
-    show-sql: true
-    generate-ddl: true
+    properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQLDialect
+          ddl-auto: update
+        show-sql: true
+        generate-ddl: true
 
 #  data:
 #    mongodb:
