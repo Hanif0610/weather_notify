@@ -17,7 +17,7 @@ class UserService(
         userRepository.save(
             User(
                 email = joinRequest.email,
-                userId = joinRequest.userId,
+                name = joinRequest.name,
                 password = passwordEncoder.encode(joinRequest.password)
             )
         )
