@@ -1,7 +1,7 @@
 package com.weather.notify.domain.entity
 
 import org.springframework.data.mongodb.core.mapping.Document
-import javax.persistence.Column
+import org.springframework.data.mongodb.core.mapping.Field
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
@@ -10,16 +10,16 @@ import javax.persistence.Id
 class User(
 
     @Id
-    @Column(name = "user_id")
+    @Field(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     internal val id: Long? = null,
 
-    @Column(name = "email")
+    @Field(name = "email")
     internal val email: String,
 
-    @Column(name = "name")
+    @Field(name = "name")
     internal var name: String,
 
-    @Column(name = "password")
+    @Field(name = "password")
     internal var password: String
 )
