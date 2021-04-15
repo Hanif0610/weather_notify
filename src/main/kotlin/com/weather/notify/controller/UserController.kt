@@ -15,7 +15,7 @@ class UserController (
     @Autowired private val userService: UserService
 ) {
 
-    @PostMapping
+    @PostMapping("/join")
     fun join(@RequestBody @Validated joinRequest: JoinRequest) {
         userService.join(joinRequest)
     }

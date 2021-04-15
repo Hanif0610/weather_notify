@@ -1,27 +1,28 @@
 package com.weather.notify.user
 
-import com.weather.notify.domain.entity.User
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.weather.notify.domain.repository.UserRepository
+import com.weather.notify.dto.JoinRequest
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.http.MediaType
 import org.springframework.test.context.TestConstructor
-import org.springframework.test.context.junit.jupiter.SpringExtension
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-@DataMongoTest
-@ExtendWith(SpringExtension::class)
+@SpringBootTest
+@AutoConfigureMockMvc
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 class UserTest(
+    private var mock: MockMvc,
+    private val objectMapper: ObjectMapper,
     private val userRepository: UserRepository
 ) {
-
-    private val email: String = "marbling1293@dsm.hs.kr"
-    private val name: String = "hanif"
-    private val password: String = "123456"
 
     @AfterEach
     fun clean() {
@@ -31,17 +32,21 @@ class UserTest(
     @Test
     @DisplayName(value = "유저 추가")
     fun join() {
-        val user: User = userRepository.save(
-            User(
-                email = email,
-                name = name,
-                password = password
-            )
+        val user = JoinRequest(
+            email = "marbling1293@dsm.hs.kr",
+            name = "hanif",
+            password = "123456"
         )
 
-        assertNotNull(user.email)
-        assertNotNull(user.name)
-        assertNotNull(user.password)
-        assertEquals(user.email, email)
+        mock.perform(post("/user/join")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(user)))
+            .andExpect(status().isOk)
+
+        userRepository.findByEmail(user.email).let {
+            assertNotNull(it?.email)
+            assertNotNull(it?.name)
+            assertNotNull(it?.password)
+        }
     }
 }
