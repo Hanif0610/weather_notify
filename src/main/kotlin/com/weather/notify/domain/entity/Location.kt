@@ -1,16 +1,13 @@
 package com.weather.notify.domain.entity
 
+import org.springframework.data.mongodb.core.mapping.Document
 import javax.persistence.Column
-import javax.persistence.Entity
 import javax.persistence.Id
-import javax.persistence.Table
 
-@Entity
-@Table(name = "location")
+@Document(value = "location")
 class Location(
 
     @Id
-    @Column(name = "locate_id")
     var id: String,
 
     @Column(name = "deep1")

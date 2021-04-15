@@ -1,9 +1,12 @@
 package com.weather.notify.domain.entity
 
-import javax.persistence.*
+import org.springframework.data.mongodb.core.mapping.Document
+import javax.persistence.Column
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
 
-@Entity
-@Table(name = "user")
+@Document(value = "user")
 class User(
 
     @Id
