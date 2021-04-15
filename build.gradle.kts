@@ -59,8 +59,9 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 //    runtimeOnly("mysql:mysql-connector-java")
 
-//    testImplementation("io.mockk:mockk:1.9.3")
+    testImplementation("io.mockk:mockk:1.9.3")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("com.jayway.jsonpath:json-path:2.1.0")
     testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
 //    testRuntimeOnly("com.h2database:h2")
 }
