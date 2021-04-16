@@ -33,6 +33,10 @@ class AuthService(
             throw CommonException(401, "Invalid Token", HttpStatus.UNAUTHORIZED)
         }
 
+        if(!jwtTokenProvider.validateToken(token)) {
+            throw CommonException(403, "Expired Token", HttpStatus.FORBIDDEN)
+        }
+
         return tokenResponse(jwtTokenProvider.getUsername(token))
     }
 
