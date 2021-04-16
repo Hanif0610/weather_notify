@@ -46,6 +46,7 @@ class WebSecurityConfig(
                     "/webjars**", "/webjars/**","swagger-ui-**", "/v2/**",
                     "/swagger-resources/**", "swagger-resources**").permitAll()
                 .antMatchers("/user/**").permitAll()
+                .antMatchers("/auth").permitAll()
                 .antMatchers("/excel/**").permitAll()
                 .antMatchers("/weather/**").permitAll()
                 .anyRequest().authenticated()
