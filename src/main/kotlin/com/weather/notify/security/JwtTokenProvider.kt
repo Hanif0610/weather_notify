@@ -59,4 +59,9 @@ class JwtTokenProvider(
             throw Exception()
         }
     }
+
+    fun isRefreshToken(token: String?): Boolean {
+        return Jwts.parser().setSigningKey(secretKey)
+            .parseClaimsJws(token).body["type"] == "REFRESH_TOKEN"
+    }
 }
