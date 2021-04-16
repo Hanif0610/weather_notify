@@ -28,6 +28,18 @@ class AuthService(
         return tokenResponse(user!!.email)
     }
 
+    fun refresh(token: String): TokenResponse {
+        if(!jwtTokenProvider.isRefreshToken(token)) {
+            throw CommonException(401, "Invalid Token", HttpStatus.UNAUTHORIZED)
+        }
+
+        if(!jwtTokenProvider.validateToken(token)) {
+            throw CommonException(403, "Expired Token", HttpStatus.FORBIDDEN)
+        }
+
+        return tokenResponse(jwtTokenProvider.getUsername(token))
+    }
+
     private fun tokenResponse(email: String): TokenResponse {
         return TokenResponse(
             accessToken = jwtTokenProvider.createToken(email, TokenType.ACCESS_TOKEN),
