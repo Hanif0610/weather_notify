@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 @AutoConfigureMockMvc
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 class UserTest(
-    private var mock: MockMvc,
+    private val mock: MockMvc,
     private val objectMapper: ObjectMapper,
     private val userRepository: UserRepository
 ) {

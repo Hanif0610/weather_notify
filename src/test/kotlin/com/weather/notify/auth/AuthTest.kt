@@ -19,14 +19,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.test.context.TestConstructor
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 class AuthTest(
-    private var mock: MockMvc,
+    private val mock: MockMvc,
     private val objectMapper: ObjectMapper,
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder = BCryptPasswordEncoder()
@@ -36,6 +38,10 @@ class AuthTest(
         email = "marbling1293@dsm.hs.kr",
         name = "hanif",
         password = passwordEncoder.encode("123456")
+    )
+    private val login = LoginRequest(
+        email = "marbling1293@dsm.hs.kr",
+        password = "123456"
     )
 
     @BeforeEach
@@ -51,22 +57,38 @@ class AuthTest(
     @Test
     @DisplayName(value = "로그인")
     fun login() {
-        val login = LoginRequest(
-            email = "marbling1293@dsm.hs.kr",
-            password = "123456"
-        )
-
-        val response = objectMapper.readValue<TokenResponse>(
-            mock.perform(
-                MockMvcRequestBuilders.post("/auth")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(login)))
-                .andExpect(MockMvcResultMatchers.status().isOk)
-                .andReturn().response.contentAsString
-        )
+        val response = getToken(post("/auth"), login)
 
         assertNotNull(response.accessToken)
         assertNotNull(response.refreshToken)
         assertEquals(response.tokenType, "Bearer")
+    }
+
+    @Test
+    @DisplayName("토큰 재발급")
+    fun refresh() {
+        val token = getToken(post("/auth"), login)
+
+        val response = objectMapper.readValue<TokenResponse>(
+            mock.perform(
+                put("/auth")
+                    .header("X-Refresh-Token", token.refreshToken)
+                    .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk)
+                .andReturn().response.contentAsString)
+
+        assertNotNull(response.accessToken)
+        assertNotNull(response.refreshToken)
+        assertEquals(response.tokenType, "Bearer")
+    }
+
+    private fun getToken(request: MockHttpServletRequestBuilder, obj: Any? = null): TokenResponse {
+        return objectMapper.readValue(
+            mock.perform(
+                request
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(login)))
+                .andExpect(status().isOk)
+                .andReturn().response.contentAsString)
     }
 }
