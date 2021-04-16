@@ -25,6 +25,7 @@ class JwtTokenProvider(
         Jwts.builder()
             .setSubject(accountId)
             .setExpiration(Date(System.currentTimeMillis() + tokenType.millisecond))
+            .claim("type", tokenType)
             .signWith(SignatureAlgorithm.HS512, secretKey)
             .compact()
 
