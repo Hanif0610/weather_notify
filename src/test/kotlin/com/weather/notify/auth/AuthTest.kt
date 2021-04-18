@@ -39,6 +39,7 @@ class AuthTest(
         name = "hanif",
         password = passwordEncoder.encode("123456")
     )
+
     private val login = LoginRequest(
         email = "marbling1293@dsm.hs.kr",
         password = "123456"
@@ -87,7 +88,7 @@ class AuthTest(
             mock.perform(
                 request
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(login)))
+                    .content(objectMapper.writeValueAsString(obj)))
                 .andExpect(status().isOk)
                 .andReturn().response.contentAsString)
     }
