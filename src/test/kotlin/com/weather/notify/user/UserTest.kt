@@ -20,9 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.test.context.TestConstructor
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @SpringBootTest
@@ -34,6 +33,17 @@ class UserTest(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder = BCryptPasswordEncoder()
 ) {
+
+    private val user = User(
+        email = "marbling1293@dsm.hs.kr",
+        name = "hanif",
+        password = passwordEncoder.encode("123456")
+    )
+
+    private val login = LoginRequest(
+        email = "marbling1293@dsm.hs.kr",
+        password = "123456"
+    )
 
     @AfterEach
     fun clean() {
@@ -59,5 +69,34 @@ class UserTest(
             assertNotNull(it?.name)
             assertNotNull(it?.password)
         }
+    }
+
+    @Test
+    @DisplayName(value = "프로필 보기")
+    fun profile() {
+        userRepository.save(user)
+
+        val token = getToken(post("/auth"), login)
+
+        val response = objectMapper.readValue<ProfileResponse>(
+            mock.perform(
+                get("/user")
+                    .header("Authorization", "Bearer $token")
+                    .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk)
+                .andReturn().response.contentAsString)
+
+        assertNotNull(response.email)
+        assertNotNull(response.name)
+    }
+
+    private fun getToken(request: MockHttpServletRequestBuilder, obj: Any? = null): String {
+        return objectMapper.readValue<TokenResponse>(
+            mock.perform(
+                request
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(obj)))
+                .andExpect(status().isOk)
+                .andReturn().response.contentAsString).accessToken
     }
 }
