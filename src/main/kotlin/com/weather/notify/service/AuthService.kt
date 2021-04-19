@@ -21,11 +21,13 @@ class AuthService(
 
     fun login(login: LoginRequest): TokenResponse {
         val user: User? = userRepository.findByEmail(login.email)
-        if(!passwordEncoder.matches(login.password, user?.password)) {
+        user?: throw CommonException(404, "User Not Found.", HttpStatus.NOT_FOUND)
+
+        if(!passwordEncoder.matches(login.password, user.password)) {
             throw CommonException(400, "Password Not Match", HttpStatus.BAD_REQUEST)
         }
 
-        return tokenResponse(user!!.email)
+        return tokenResponse(user.email)
     }
 
     fun refresh(token: String): TokenResponse {
