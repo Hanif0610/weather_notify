@@ -3,6 +3,7 @@ package com.weather.notify.controller
 import com.weather.notify.dto.JoinRequest
 import com.weather.notify.dto.ProfileResponse
 import com.weather.notify.dto.UpdateNameRequest
+import com.weather.notify.dto.UpdatePasswordRequest
 import com.weather.notify.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.validation.annotation.Validated
@@ -27,5 +28,10 @@ class UserController (
     @PutMapping("/name")
     fun updateName(@RequestBody @Validated updateNameRequest: UpdateNameRequest) {
         userService.updateName(updateNameRequest)
+    }
+
+    @PutMapping("/password")
+    fun updatePassword(@RequestBody @Validated updatePasswordRequest: UpdatePasswordRequest) {
+        userService.updatePassword(updatePasswordRequest)
     }
 }
