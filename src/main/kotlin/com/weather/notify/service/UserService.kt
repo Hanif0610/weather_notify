@@ -5,6 +5,7 @@ import com.weather.notify.domain.repository.UserRepository
 import com.weather.notify.dto.JoinRequest
 import com.weather.notify.dto.ProfileResponse
 import com.weather.notify.dto.UpdateNameRequest
+import com.weather.notify.dto.UpdatePasswordRequest
 import com.weather.notify.exception.CommonException
 import com.weather.notify.security.AuthenticationFacade
 import org.springframework.beans.factory.annotation.Autowired
@@ -48,5 +49,12 @@ class UserService(
         user?: throw CommonException(404, "User Not Found.", HttpStatus.NOT_FOUND)
 
         userRepository.save(user.updateName(updateNameRequest))
+    }
+
+    fun updatePassword(updatePasswordRequest: UpdatePasswordRequest) {
+        val user: User? = userRepository.findByEmail(authenticationFacade.getEmail())
+        user?: throw CommonException(404, "User Not Found.", HttpStatus.NOT_FOUND)
+
+        userRepository.save(user.updatePassword(passwordEncoder.encode(updatePasswordRequest.password)))
     }
 }
