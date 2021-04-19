@@ -1,5 +1,6 @@
 package com.weather.notify.domain.entity
 
+import com.weather.notify.dto.UpdateNameRequest
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
 import javax.persistence.GeneratedValue
@@ -22,4 +23,10 @@ class User(
 
     @Field(name = "password")
     internal var password: String
-)
+) {
+
+    fun updateName(updateNameRequest: UpdateNameRequest): User {
+        this.name = updateNameRequest.name
+        return this
+    }
+}
