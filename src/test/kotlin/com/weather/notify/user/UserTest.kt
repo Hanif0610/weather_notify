@@ -6,7 +6,6 @@ import com.weather.notify.domain.entity.User
 import com.weather.notify.domain.repository.UserRepository
 import com.weather.notify.dto.*
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -103,11 +102,24 @@ class UserTest(
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updateName)))
             .andExpect(status().isOk)
+    }
 
-//        userRepository.findByEmail(user.email)?.let {
-//            assertNotNull(it.name)
-//            assertEquals(it.name, updateName.name)
-//        }
+    @Test
+    @DisplayName(value = "프로필 비밀번호 수정")
+    fun updatePassword() {
+        userRepository.save(user)
+
+        val token = getToken(post("/auth"), login)
+        val updatePassword = UpdatePasswordRequest(
+            password = "asd123"
+        )
+
+        mock.perform(
+            put("/user/password")
+                .header("Authorization", "Bearer $token")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(updatePassword)))
+            .andExpect(status().isOk)
     }
 
     private fun getToken(request: MockHttpServletRequestBuilder, obj: Any? = null): String {
