@@ -4,9 +4,9 @@ import com.weather.notify.domain.entity.User
 import com.weather.notify.domain.repository.UserRepository
 import com.weather.notify.dto.JoinRequest
 import com.weather.notify.dto.ProfileResponse
+import com.weather.notify.dto.UpdateNameRequest
 import com.weather.notify.exception.CommonException
 import com.weather.notify.security.AuthenticationFacade
-import com.weather.notify.security.JwtTokenProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -41,5 +41,12 @@ class UserService(
                 password = passwordEncoder.encode(joinRequest.password)
             )
         )
+    }
+
+    fun updateName(updateNameRequest: UpdateNameRequest) {
+        val user: User? = userRepository.findByEmail(authenticationFacade.getEmail())
+        user?: throw CommonException(404, "User Not Found.", HttpStatus.NOT_FOUND)
+
+        userRepository.save(user.updateName(updateNameRequest))
     }
 }
