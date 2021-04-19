@@ -30,6 +30,10 @@ class UserService(
     }
 
     fun join(joinRequest: JoinRequest) {
+        if(userRepository.existsByEmail(joinRequest.email)) {
+            throw CommonException(409, "Email already exists.", HttpStatus.CONFLICT)
+        }
+
         userRepository.save(
             User(
                 email = joinRequest.email,
