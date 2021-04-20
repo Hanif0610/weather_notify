@@ -57,4 +57,11 @@ class UserService(
 
         userRepository.save(user.updatePassword(passwordEncoder.encode(updatePasswordRequest.password)))
     }
+
+    fun deleteUser() {
+        val user: User? = userRepository.findByEmail(authenticationFacade.getEmail())
+        user?: throw CommonException(404, "User Not Found.", HttpStatus.NOT_FOUND)
+
+        userRepository.delete(user)
+    }
 }

@@ -34,4 +34,9 @@ class UserController (
     fun updatePassword(@RequestBody @Validated updatePasswordRequest: UpdatePasswordRequest) {
         userService.updatePassword(updatePasswordRequest)
     }
+
+    @DeleteMapping
+    fun deleteUser() {
+        userService.deleteUser()
+    }
 }
