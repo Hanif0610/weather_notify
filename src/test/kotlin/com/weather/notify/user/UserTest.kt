@@ -122,6 +122,20 @@ class UserTest(
             .andExpect(status().isOk)
     }
 
+    @Test
+    @DisplayName(value = "유저 삭제")
+    fun deleteUser() {
+        userRepository.save(user)
+
+        val token = getToken(post("/auth"), login)
+
+        mock.perform(
+            delete("/user")
+                .header("Authorization", "Bearer $token")
+                .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk)
+    }
+
     private fun getToken(request: MockHttpServletRequestBuilder, obj: Any? = null): String {
         return objectMapper.readValue<TokenResponse>(
             mock.perform(
