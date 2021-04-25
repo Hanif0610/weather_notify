@@ -1,5 +1,6 @@
 package com.weather.notify.controller
 
+import com.weather.notify.dto.DataResponse
 import com.weather.notify.dto.WeatherRequest
 import com.weather.notify.service.WeatherService
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,7 +15,7 @@ class WeatherController(
 ) {
 
     @GetMapping
-    fun getData(weather: WeatherRequest): Any? {
+    fun getData(weather: WeatherRequest): MutableList<DataResponse>? {
         return weatherService.getData(weather)
     }
 }
