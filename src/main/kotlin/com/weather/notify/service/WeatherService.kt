@@ -25,7 +25,7 @@ class WeatherService(
     @Autowired private val authenticationFacade: AuthenticationFacade
 ){
 
-    fun getData(weather: WeatherRequest): Any? {
+    fun getData(weather: WeatherRequest): MutableList<DataResponse>? {
         val user: User? = userRepository.findByEmail(authenticationFacade.getEmail())
         user?: throw CommonException(404, "User Not Found.", HttpStatus.NOT_FOUND)
 
@@ -63,6 +63,6 @@ class WeatherService(
             return list
         }
 
-        return ""
+        return null
     }
 }
