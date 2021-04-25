@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Service
 class WeatherService(
@@ -28,14 +29,18 @@ class WeatherService(
         val user: User? = userRepository.findByEmail(authenticationFacade.getEmail())
         user?: throw CommonException(404, "User Not Found.", HttpStatus.NOT_FOUND)
 
-        val date: String = LocalDate.now().minusDays(1).toString().split("-").joinToString("")
+        val date: String = if("${LocalDateTime.now().hour}00".toInt() >= 2000) {
+            LocalDate.now().toString().split("-").joinToString("")
+        } else {
+            LocalDate.now().minusDays(1).toString().split("-").joinToString("")
+        }
 
-        val key = "egDfenHknpZmGHHRQMji%2B9Qx99SYWf9xPzOkmz%2BErohCIFA8YI%2B1XNNKWikdd7hmQ9d8TIY3QAUWiN2zuHInCg%3D%3D"
+        val key = "%2FQ%2Bg4KpLm7WVsvFUoYpDvdN7enbMborLyCooFHPNt03lmWFK9OZycaqh5Z%2BcrgN1MJSzsV8TxI9BQMJEQ6LcBw%3D%3D"
 
         val client = OkHttpClient()
         val request = Request.Builder()
             .url("http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst?" +
-                    "serviceKey=$key&numOfRows=93&dataType=JSON&" +
+                    "serviceKey=$key&numOfRows=93&pageNo=1&dataType=JSON&" +
                     "base_date=$date&base_time=2000&nx=${weather.nx}&ny=${weather.ny}").build()
         val response = client.newCall(request).execute()
 
@@ -54,8 +59,10 @@ class WeatherService(
             item.forEach {
                 list.add(objectMapper.readValue(it.toString(), DataResponse::class.java))
             }
+
             return list
         }
+
         return ""
     }
 }
