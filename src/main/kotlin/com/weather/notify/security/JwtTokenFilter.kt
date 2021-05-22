@@ -1,6 +1,5 @@
 package com.weather.notify.security
 
-import io.jsonwebtoken.ExpiredJwtException
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
@@ -17,22 +16,11 @@ class JwtTokenFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        try {
-            val token: String? = jwtTokenProvider.resolveToken(request)
-            if(token != null && jwtTokenProvider.validateToken(token)) {
-                val auth: Authentication = jwtTokenProvider.getAuthentication(token)
-                SecurityContextHolder.getContext().authentication = auth
-            }
-            filterChain.doFilter(request, response)
-        } catch (e: Exception) {
-            when(e) {
-                is ExpiredJwtException -> {
-                    response.sendError(403, "The jwt token has expired.")
-                }
-                else -> {
-                    SecurityContextHolder.clearContext()
-                }
-            }
+        val token: String? = jwtTokenProvider.resolveToken(request)
+        if(token != null && jwtTokenProvider.validateToken(token)) {
+            val auth: Authentication = jwtTokenProvider.getAuthentication(token)
+            SecurityContextHolder.getContext().authentication = auth
         }
+        filterChain.doFilter(request, response)
     }
 }
