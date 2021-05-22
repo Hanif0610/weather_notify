@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository
 interface UserRepository: MongoRepository<User, Int> {
     fun findByEmail(email: String): User?
     fun existsByEmail(email: String): Boolean
+    fun deleteByEmail(email: String)
 }
