@@ -20,6 +20,10 @@ class UserService(
     @Autowired private val authenticationFacade: AuthenticationFacade
 ) {
 
+    fun checkEmail(email: String): Boolean {
+        return userRepository.existsByEmail(email)
+    }
+
     fun profile(): ProfileResponse {
         val user: User? = userRepository.findByEmail(authenticationFacade.getEmail())
         user?: throw CommonException(404, "User Not Found.", HttpStatus.NOT_FOUND)
@@ -62,6 +66,6 @@ class UserService(
         val user: User? = userRepository.findByEmail(authenticationFacade.getEmail())
         user?: throw CommonException(404, "User Not Found.", HttpStatus.NOT_FOUND)
 
-        userRepository.delete(user)
+        userRepository.deleteByEmail(user.email)
     }
 }

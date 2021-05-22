@@ -15,6 +15,11 @@ class UserController (
     @Autowired private val userService: UserService
 ) {
 
+    @GetMapping("/email")
+    fun checkEmail(@RequestParam("email") email: String): Boolean {
+        return userService.checkEmail(email)
+    }
+
     @GetMapping
     fun profile(): ProfileResponse {
         return userService.profile()
