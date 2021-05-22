@@ -47,6 +47,26 @@ class UserTest(
     }
 
     @Test
+    @DisplayName(value = "이메일 중복 확인 true")
+    fun checkEmailTrue() {
+        mock.perform(get("/user/email")
+            .contentType(MediaType.APPLICATION_JSON)
+            .param("email", "610hanif@gmail.com"))
+            .andExpect(status().isOk)
+    }
+
+    @Test
+    @DisplayName(value = "이메일 중복 확인 false")
+    fun checkEmailFalse() {
+        userRepository.save(user)
+
+        mock.perform(get("/user/email")
+            .contentType(MediaType.APPLICATION_JSON)
+            .param("email", "marbling1293@dsm.hs.kr"))
+            .andExpect(status().isOk)
+    }
+
+    @Test
     @DisplayName(value = "유저 추가")
     fun join() {
         val user = JoinRequest(
