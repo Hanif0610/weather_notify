@@ -1,5 +1,6 @@
 package com.weather.notify.controller
 
+import com.weather.notify.dto.DeepRequest
 import com.weather.notify.service.ExcelService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
@@ -17,14 +18,13 @@ class ExcelController(
     }
 
     @GetMapping("/deep2")
-    fun getDeep2(@RequestParam("deep1") deep1: String): List<String?> {
-        return excelService.getDeep2(deep1)
+    fun getDeep2(deepRequest: DeepRequest): List<String?> {
+        return excelService.getDeep2(deepRequest)
     }
 
     @GetMapping("/deep3")
-    fun getDeep3(@RequestParam("deep1") deep1: String,
-                 @RequestParam("deep2") deep2: String): List<String?> {
-        return excelService.getDeep3(deep1, deep2)
+    fun getDeep3(deepRequest: DeepRequest): List<String?> {
+        return excelService.getDeep3(deepRequest)
     }
 
     @PostMapping("/upload")
