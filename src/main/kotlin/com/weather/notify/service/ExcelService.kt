@@ -2,6 +2,7 @@ package com.weather.notify.service
 
 import com.weather.notify.domain.entity.Location
 import com.weather.notify.domain.repository.ExcelRepository
+import com.weather.notify.dto.DeepRequest
 import org.apache.commons.io.FilenameUtils
 import org.apache.poi.openxml4j.opc.OPCPackage
 import org.apache.poi.xssf.usermodel.XSSFCell
@@ -22,12 +23,13 @@ class ExcelService(
         return excelRepository.findAll().map { it.deep1 }.distinct()
     }
 
-    fun getDeep2(deep1: String): List<String?> {
-        return excelRepository.findAllByDeep1(deep1).filter { it.deep2 != "" }.map { it.deep2 }.distinct()
+    fun getDeep2(deepRequest: DeepRequest): List<String?> {
+        return excelRepository.findAllByDeep1(deepRequest.deep1).filter { it.deep2 != "" }.map { it.deep2 }.distinct()
     }
 
-    fun getDeep3(deep1: String, deep2: String): List<String> {
-        return excelRepository.findAllByDeep1AndDeep2(deep1, deep2).filter { it.deep3 != "" }.map { it.deep3!! }
+    fun getDeep3(deepRequest: DeepRequest): List<String> {
+        return excelRepository.findAllByDeep1AndDeep2(deepRequest.deep1, deepRequest.deep2)
+            .filter { it.deep3 != "" }.map { it.deep3!! }
     }
 
     fun uploadExcel(excel: MultipartFile) {
