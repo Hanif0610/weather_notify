@@ -17,8 +17,14 @@ class ExcelController(
     }
 
     @GetMapping("/deep2")
-    fun getDeep2(@RequestParam("location") location: String): List<String?> {
-        return excelService.getDeep2(location)
+    fun getDeep2(@RequestParam("deep1") deep1: String): List<String?> {
+        return excelService.getDeep2(deep1)
+    }
+
+    @GetMapping("/deep3")
+    fun getDeep3(@RequestParam("deep1") deep1: String,
+                 @RequestParam("deep2") deep2: String): List<String?> {
+        return excelService.getDeep3(deep1, deep2)
     }
 
     @PostMapping("/upload")
