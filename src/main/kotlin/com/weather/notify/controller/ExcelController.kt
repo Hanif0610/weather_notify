@@ -16,6 +16,11 @@ class ExcelController(
         return excelService.getDeep1()
     }
 
+    @GetMapping("/deep2")
+    fun getDeep2(@RequestParam("location") location: String): List<String?> {
+        return excelService.getDeep2(location)
+    }
+
     @PostMapping("/upload")
     fun uploadExcel(@RequestParam("excel") excel: MultipartFile) {
         excelService.uploadExcel(excel)

@@ -18,6 +18,14 @@ class ExcelService(
     @Autowired private val excelRepository: ExcelRepository
 ) {
 
+    fun getDeep1(): List<String> {
+        return excelRepository.findAll().map { it.deep1 }.distinct()
+    }
+
+    fun getDeep2(location: String): List<String?> {
+        return excelRepository.findAllByDeep1(location).filter { it.deep2 != "" }.map { it.deep2 }.distinct()
+    }
+
     fun uploadExcel(excel: MultipartFile) {
         val extension = FilenameUtils.getExtension(excel.originalFilename)
         if (extension != "xlsx" && extension != "xls") throw IOException("엑셀파일만 업로드 해주세요.")
@@ -52,9 +60,5 @@ class ExcelService(
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
-
-    fun getDeep1(): List<String> {
-        return excelRepository.findAll().map { it.deep1 }.distinct()
     }
 }
