@@ -53,4 +53,8 @@ class ExcelService(
             e.printStackTrace()
         }
     }
+
+    fun getDeep1(): List<String> {
+        return excelRepository.findAll().map { it.deep1 }.distinct()
+    }
 }
