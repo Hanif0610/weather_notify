@@ -1,5 +1,6 @@
 package com.weather.notify.controller
 
+import com.weather.notify.dto.CoordinateResponse
 import com.weather.notify.dto.DeepRequest
 import com.weather.notify.service.ExcelService
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,6 +26,11 @@ class ExcelController(
     @GetMapping("/deep3")
     fun getDeep3(deepRequest: DeepRequest): List<String?> {
         return excelService.getDeep3(deepRequest)
+    }
+
+    @GetMapping("/coordinate")
+    fun getCoordinate(deepRequest: DeepRequest): CoordinateResponse {
+        return excelService.getCoordinate(deepRequest)
     }
 
     @PostMapping("/upload")
