@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository
 interface ExcelRepository: MongoRepository<Location, String> {
     fun findAllByDeep1(deep1: String): List<Location>
     fun findAllByDeep1AndDeep2(deep1: String, deep2: String?): List<Location>
+    fun findAllByDeep1AndDeep2AndDeep3(deep1: String, deep2: String?, deep3: String?): Location
 }
