@@ -25,8 +25,6 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-//    implementation("mysql:mysql-connector-java")
-//    implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -57,13 +55,11 @@ dependencies {
     compile("org.apache.poi:ooxml-security:1.0")
     compile("commons-io:commons-io:2.4")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-//    runtimeOnly("mysql:mysql-connector-java")
 
     testImplementation("io.mockk:mockk:1.9.3")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("com.jayway.jsonpath:json-path:2.1.0")
     testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
-//    testRuntimeOnly("com.h2database:h2")
 }
 
 tasks.withType<KotlinCompile> {
