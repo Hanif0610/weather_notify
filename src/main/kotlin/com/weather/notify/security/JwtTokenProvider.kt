@@ -56,7 +56,7 @@ class JwtTokenProvider(
             if(claims.body.expiration.before(Date())) return false
             return true
         } catch (e: Exception) {
-            throw Exception()
+            return false
         }
     }
 
