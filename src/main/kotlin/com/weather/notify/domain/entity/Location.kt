@@ -21,8 +21,8 @@ class Location(
     val deep3: String? = null,
 
     @Field(name = "nx")
-    val nx: Double,
+    val nx: Int,
 
     @Field(name = "ny")
-    val ny: Double
+    val ny: Int
 )
